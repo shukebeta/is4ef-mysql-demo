@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
+using is4ef.Data;using is4ef.Models;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +17,7 @@ using System;
 using IdentityServer4.EntityFramework.DbContexts;
 using System.Linq;
 using IdentityServer4.EntityFramework.Mappers;
+using Microsoft.AspNetCore.Identity;
 
 namespace is4ef
 {
@@ -50,8 +51,17 @@ namespace is4ef
             });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySql(connectionString, mySqlOptions =>
+                {
+                    mySqlOptions.ServerVersion(new ServerVersion(new Version(5, 7, 29), ServerType.MySql));
+                    mySqlOptions.MigrationsAssembly(migrationsAssembly);
+                }
+            ));            services.AddIdentity<ApplicationUser, IdentityRole>()                .AddEntityFrameworkStores<ApplicationDbContext>()                .AddDefaultTokenProviders();
+
+
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
