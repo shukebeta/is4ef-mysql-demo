@@ -77,7 +77,7 @@ namespace is4ef
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                 })
-                //.AddTestUsers(TestUsers.Users)
+                .AddAspNetIdentity<ApplicationUser>()
                 // this adds the config data from DB (clients, resources, CORS)
                 .AddConfigurationStore(options =>
                 {
