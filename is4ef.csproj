@@ -1,21 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>27a41b68-53e3-48d7-9c9f-3c9c5ce65159</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Migrations\20200304024725_InitialCreate.cs" />
     <Compile Remove="Migrations\20200304024725_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200304024833_InitialCreatePersisted.cs" />
     <Compile Remove="Migrations\20200304024833_InitialCreatePersisted.Designer.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="IdentityServer4.EntityFramework" Version="3.1.2" />
-    
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.2" />
-
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
@@ -23,13 +20,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
-
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="4.7.0" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
