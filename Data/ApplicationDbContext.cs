@@ -19,4 +19,5 @@ namespace is4ef.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
+
 }

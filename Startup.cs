@@ -4,7 +4,6 @@
 using is4ef.Data;
 using is4ef.Models;
 using IdentityServer4;
-using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -103,17 +102,25 @@ namespace is4ef
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            services.AddAuthentication()                 .AddGoogle(options =>
+                 {
+                     //IConfigurationSection googleAuthNSection =
+                     //    Configuration.GetSection("Authentication:Google");
 
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to http://localhost:5000/signin-google
-                    options.ClientId = "copy client ID from Google here";
-                    options.ClientSecret = "copy client secret from Google here";
-                });
+                     options.ClientId = "2527927358-bvnja6te3f5sqfd5s9q449v2sivii6c0.apps.googleusercontent.com"; //googleAuthNSection["ClientId"];
+                     options.ClientSecret = "NRUIA3lT6-d_ARZXlCmyrCkV"; // googleAuthNSection["ClientSecret"];
+                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                 });
+                //.AddGoogle(options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                //    // register your IdentityServer with Google at https://console.developers.google.com
+                //    // enable the Google+ API
+                //    // set the redirect URI to http://localhost:5000/signin-google
+                //    options.ClientId = "";
+                //    options.ClientSecret = "";
+                //});
         }
 
         public void Configure(IApplicationBuilder app)
