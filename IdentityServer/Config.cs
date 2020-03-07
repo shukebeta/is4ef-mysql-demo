@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
@@ -34,9 +35,40 @@ namespace is4ef
                     ClientName = "Client Credentials Client",
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+                    ClientSecrets =
+                    {
+                        new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256())
+                    },
 
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "api1" },
+                    AllowOfflineAccess = false,
+                    AccessTokenLifetime = 600
+                },
+
+                // resource owner flow
+                new Client
+                {
+                    ClientId = "resource_owner_flow",
+                    ClientName = "Resource Owner Flow",
+
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                        new Secret("resource_owner_flow_secret".Sha256())
+                    },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "api1"
+                    },
+                    AllowOfflineAccess = true,
+                    AccessTokenLifetime = 60,
+
+                    RefreshTokenUsage = TokenUsage.OneTimeOnly,
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
+                    AbsoluteRefreshTokenLifetime = 300
                 },
 
                 // MVC client using code flow + pkce

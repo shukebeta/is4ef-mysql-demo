@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "is4ef": {
+    "IdentityServer": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
