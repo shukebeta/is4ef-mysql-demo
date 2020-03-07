@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>27a41b68-53e3-48d7-9c9f-3c9c5ce65159</UserSecretsId>
+    <AssemblyName>is4ef</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20200304024725_InitialCreate.cs" />
