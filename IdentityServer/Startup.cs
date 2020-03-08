@@ -3,7 +3,7 @@
 
 using is4ef.Data;
 using is4ef.Models;
-using IdentityServer4;
+using IdentityServer4.AspNetIdentity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,7 +68,6 @@ namespace is4ef
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
@@ -97,7 +96,9 @@ namespace is4ef
 
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
-                });
+                })
+                // using the official implementation of ResourceOwnerPasswordValidator for Asp Idenetity Core
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator<ApplicationUser>>();
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
