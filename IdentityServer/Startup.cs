@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using IdentityModel;
 using Serilog;
+using IdentityServer4;
+using Microsoft.IdentityModel.Tokens;
 
 namespace is4ef
 {
@@ -105,11 +107,11 @@ namespace is4ef
 
             services.AddAuthentication()
                 .AddGoogle(options =>
-                     {
-                         options.ClientId = Configuration["Authentication:Google:ClientId"];
-                         options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                         options.SignInScheme = IdentityConstants.ExternalScheme; //IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                     });
+                {
+                    options.ClientId = Configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -221,15 +223,16 @@ namespace is4ef
                     }   
 
                     result = userMgr.AddClaimsAsync(bob, new Claim[]{
-                    new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                    new Claim(JwtClaimTypes.GivenName, "Bob"),
-                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                    new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
-                    new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                    new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("location", "somewhere")
-                }).Result;
+                        new Claim(JwtClaimTypes.Name, "Bob Smith"),
+                        new Claim(JwtClaimTypes.GivenName, "Bob"),
+                        new Claim(JwtClaimTypes.FamilyName, "Smith"),
+                        new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
+                        new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                        new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
+                        new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
+                        new Claim("location", "somewhere")
+                    }).Result;
+
                     if (!result.Succeeded)
                     {
                         throw new Exception(result.Errors.First().Description);
